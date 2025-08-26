@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Azad Furniture</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin-styles.css">
+    <script src="marketing-config.js"></script>
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <h1 data-en="Azad Furniture - Admin Panel" data-hi="अज़ाद फर्नीचर - एडमिन पैनल">Azad Furniture - Admin Panel</h1>
+            <div class="header-controls">
+                <select id="languageSelect" class="language-select">
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी</option>
+                </select>
+                <a href="index.html" class="view-site-btn" data-en="View Website" data-hi="वेबसाइट देखें">View Website</a>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <div class="upload-section">
+                <h2 data-en="Add New Product" data-hi="नया उत्पाद जोड़ें">Add New Product</h2>
+                <form id="productForm" class="product-form">
+                    <div class="form-group">
+                        <label for="productName" data-en="Product Name:" data-hi="उत्पाद का नाम:">Product Name:</label>
+                        <input type="text" id="productName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productPrice" data-en="Price (₹):" data-hi="कीमत (₹):">Price (₹):</label>
+                        <input type="number" id="productPrice" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productDescription" data-en="Description:" data-hi="विवरण:">Description:</label>
+                        <textarea id="productDescription" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productImages" data-en="Product Images (Max 5):" data-hi="उत्पाद की तस्वीरें (अधिकतम 5):">Product Images (Max 5):</label>
+                        <input type="file" id="productImages" accept="image/*" multiple required>
+                        <div class="image-preview" id="imagePreview"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productCategory" data-en="Category:" data-hi="श्रेणी:">Category:</label>
+                        <select id="productCategory" required>
+                            <option value="" data-en="Select Category" data-hi="श्रेणी चुनें">Select Category</option>
+                            <option value="doors" data-en="Doors & Frames" data-hi="दरवाजे और फ्रेम">Doors & Frames</option>
+                            <option value="sofa" data-en="Sofa Sets" data-hi="सोफा सेट">Sofa Sets</option>
+                            <option value="beds" data-en="Beds" data-hi="बिस्तर">Beds</option>
+                            <option value="dining" data-en="Dining Tables" data-hi="डाइनिंग टेबल">Dining Tables</option>
+                            <option value="dressing" data-en="Creative Wooden Furniture" data-hi="रचनात्मक लकड़ी का फर्नीचर">Creative Wooden Furniture</option>
+                            <option value="custom" data-en="Custom Work" data-hi="कस्टम काम">Custom Work</option>
+                        </select>
+                    </div>
+                    
+                    <div class="marketing-section">
+                        <label class="marketing-toggle">
+                            <input type="checkbox" id="autoMarketing" checked>
+                            <span data-en="Auto-post to social media" data-hi="सोशल मीडिया पर ऑटो-पोस्ट">Auto-post to social media</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" data-en="Add Product" data-hi="उत्पाद जोड़ें">Add Product</button>
+                </form>
+            </div>
+
+            <div class="products-list">
+                <div class="products-header">
+                    <h2 data-en="Manage Products" data-hi="उत्पाद प्रबंधन">Manage Products</h2>
+                    <div class="header-controls">
+                        <select id="categoryFilter" class="category-filter">
+                            <option value="all" data-en="All Categories" data-hi="सभी श्रेणियां">All Categories</option>
+                            <option value="doors" data-en="Doors & Frames" data-hi="दरवाजे और फ्रेम">Doors & Frames</option>
+                            <option value="sofa" data-en="Sofa Sets" data-hi="सोफा सेट">Sofa Sets</option>
+                            <option value="beds" data-en="Beds" data-hi="बिस्तर">Beds</option>
+                            <option value="dining" data-en="Dining Tables" data-hi="डाइनिंग टेबल">Dining Tables</option>
+                            <option value="dressing" data-en="Creative Wooden Furniture" data-hi="रचनात्मक लकड़ी का फर्नीचर">Creative Wooden Furniture</option>
+                            <option value="custom" data-en="Custom Work" data-hi="कस्टम काम">Custom Work</option>
+                        </select>
+                        <button class="marketing-history-btn" onclick="showMarketingHistory()" data-en="Marketing History" data-hi="मार्केटिंग इतिहास">Marketing History</button>
+                    </div>
+                </div>
+                <div id="productsList" class="products-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="auto-marketing.js"></script>
+    <script src="admin-script.js"></script>
+</body>
+</html>
