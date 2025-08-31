@@ -9,7 +9,27 @@
     <script src="marketing-config.js"></script>
 </head>
 <body>
-    <div class="admin-container">
+    <!-- Login Form -->
+    <div id="loginContainer" class="login-container">
+        <div class="login-form">
+            <h2>Admin Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Email:</label>
+                    <input type="email" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit">Login</button>
+                <div id="loginError" class="error-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel (Hidden by default) -->
+    <div id="adminContainer" class="admin-container" style="display: none;">
         <header class="admin-header">
             <h1 data-en="Azad Furniture - Admin Panel" data-hi="अज़ाद फर्नीचर - एडमिन पैनल">Azad Furniture - Admin Panel</h1>
             <div class="header-controls">
@@ -18,6 +38,7 @@
                     <option value="hi">हिंदी</option>
                 </select>
                 <a href="index.html" class="view-site-btn" data-en="View Website" data-hi="वेबसाइट देखें">View Website</a>
+                <button onclick="logout()" class="logout-btn" data-en="Logout" data-hi="लॉगआउट">Logout</button>
             </div>
         </header>
 

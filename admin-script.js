@@ -1,3 +1,74 @@
+// Authentication system
+class AuthManager {
+    constructor() {
+        this.users = {
+            'azad@azadfurniture.in': 'Az@d0786',
+            'sanu@azadfurniture.in': 'S@nu0786'
+        };
+        this.isAuthenticated = sessionStorage.getItem('adminAuth') === 'true';
+        this.init();
+    }
+
+    init() {
+        if (this.isAuthenticated) {
+            this.showAdminPanel();
+        } else {
+            this.showLoginForm();
+        }
+        this.bindLoginEvents();
+    }
+
+    bindLoginEvents() {
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleLogin();
+            });
+        }
+    }
+
+    handleLogin() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const errorDiv = document.getElementById('loginError');
+
+        if (this.users[username] && this.users[username] === password) {
+            sessionStorage.setItem('adminAuth', 'true');
+            this.isAuthenticated = true;
+            this.showAdminPanel();
+            errorDiv.style.display = 'none';
+        } else {
+            errorDiv.textContent = 'Invalid email or password';
+            errorDiv.style.display = 'block';
+        }
+    }
+
+    showLoginForm() {
+        document.getElementById('loginContainer').style.display = 'flex';
+        document.getElementById('adminContainer').style.display = 'none';
+    }
+
+    showAdminPanel() {
+        document.getElementById('loginContainer').style.display = 'none';
+        document.getElementById('adminContainer').style.display = 'block';
+    }
+
+    logout() {
+        sessionStorage.removeItem('adminAuth');
+        this.isAuthenticated = false;
+        this.showLoginForm();
+        // Clear form data
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+    }
+}
+
+// Global logout function
+function logout() {
+    authManager.logout();
+}
+
 // Language management
 class LanguageManager {
     constructor() {
@@ -549,8 +620,33 @@ function closeMarketingModal() {
     if (modal) modal.remove();
 }
 
-// Initialize product manager
-const productManager = new ProductManager();
+// Initialize authentication and product manager
+const authManager = new AuthManager();
+let productManager;
+
+// Initialize product manager only after authentication
+function initializeProductManager() {
+    if (!productManager) {
+        productManager = new ProductManager();
+    }
+}
+
+// Override ProductManager constructor to check authentication
+class AuthenticatedProductManager extends ProductManager {
+    constructor() {
+        if (!authManager.isAuthenticated) {
+            throw new Error('Authentication required');
+        }
+        super();
+    }
+}
+
+// Initialize when authenticated
+setTimeout(() => {
+    if (authManager.isAuthenticated) {
+        productManager = new ProductManager();
+    }
+}, 100);
 
 // Initialize auto-marketing toggle
 document.addEventListener('DOMContentLoaded', () => {
